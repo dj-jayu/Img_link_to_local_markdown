@@ -1,0 +1,1 @@
+# Img_link_to_local_Obsidian
