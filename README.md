@@ -1,5 +1,12 @@
 # Img_link_to_local_Markdown
 
+# Why?
+Offline markdown files are a reliable way to store and organize information.
+When copying from the web the text is copied directly, but images are copied as links.
+If the link expires on the future, or you are offline, you lost the information.
+It would be great to have every picture added as a link downloaded to local storage.
+While Obsidian doesn't implement this feature, I created this python script to do it.
+
 # How to use
 - Install Python on your computer
 - Download the "main.py" file above from GitHub
