@@ -12,7 +12,7 @@ While Obsidian doesn't implement this feature natively, I created this python sc
 - Download the "main.py" file above from GitHub
 - Save the downloaded "main.py" file in the same folder as the markdown files you want to modify 
 - Double click on the file and wait for it's completion
-- Look on your parent folder for a new folder called "External_Imgs_to_Local_Files"
+- Look on your current folder for a new folder called "Images"
 - Inside you will find the modified markdown files with links to the downloaded images
 
 
@@ -25,11 +25,11 @@ and download the images.
 The original markdown files are never modified, only read.
 
 ## Where the new files are saved:
-The new created markdown files with the local links, and the images downloaded will be created in a new folder called "External_Imgs_to_Local_Files"
-located inside the parent directory of the location where you ran "main.py".
+The new created markdown files with the local links, and the images downloaded will be created in a new folder called "Images"
+located on the folder where you ran "main.py".
 
 ## Log file
-A log file "Img_To_Local_Python.log" will be created inside the same folder as the "main.py" script.
+A log file "PythonObsidian.log" will be created inside the same folder as the "main.py" script.
 
 ## How the substitution works
 The regex looks for an image url and substitute it for a random name with the same extension of the file (https://www.site.com/image.jpg -> 1234567890image.jpg)
