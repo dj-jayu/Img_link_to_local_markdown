@@ -10,7 +10,7 @@ import logging
 # Creates a folder in "location" to store the pictures and the modified files (local link to imgs)
 
 class FolderCreator:
-    def __init__(self, location = ".."):
+    def __init__(self, location = "."):
         self.location = location
 
     def create_folder(self, name):
@@ -93,9 +93,9 @@ class FileDataEditor:
         self.url_dict = url_dict
         self.file_data = file_data
         for key, value in url_dict.items():
-            self.file_data = self.file_data.replace(key, value)
-            print(f"\nreplaced: {key}\nwith {value}\n on file {self.file_name}\n")
-            logging.info(f"replaced: {key}\nwith: {value}\non file: {self.file_name}\n")
+            self.file_data = self.file_data.replace(key, f"/Images/{value}")
+            print(f"\nreplaced: {key}\nwith /Images/{value}\n on file {self.file_name}\n")
+            logging.info(f"replaced: {key}\nwith: /Images/{value}\non file: {self.file_name}\n")
 
         return self.file_data
 
@@ -104,14 +104,16 @@ class FileDataEditor:
 # Program start:
 print("\n\n\nStarting..\n")
 
-
+log_file_name = "PythonObsidian.log"
 # Create new log file     
-logging.basicConfig(filename='Img_To_Local_Python.log', encoding='utf-8', filemode="w",   level=logging.DEBUG)
+logging.basicConfig(filename=log_file_name, encoding='utf-8', filemode="w",   level=logging.DEBUG)
+
 
 # Defines the folder to write the new markdown files and the downloaded images
-folder_name = "External_Imgs_to_Local_Files"
+folder_name = "Images"
 
-folder_path = os.path.abspath(os.path.join(os.getcwd(),os.pardir) + f"\/{folder_name}\/")
+folder_path = os.path.abspath(os.getcwd() + f"\/{folder_name}\/")
+
 
 
 # Create new folder to receive the downloaded imgs and edited MD files
@@ -132,7 +134,6 @@ for filename in os.listdir(os.getcwd()):
     print("\n")
 
     if filename[-3:] != ".md":
-        # log_file_creator.write(f"{filename} ignored (not '.md')\n")
         logging.info(f"Skipped file: {filename}\n")
         print(f"Skipped file: {filename}")
         continue
@@ -166,8 +167,9 @@ print("\n\n\nIf everything went OK, you can check your modified markdown")
 print("files and the downloaded images on the folder:")
 print(f"{folder_path}")
 
-print(f"\nFor more info check the log file on \n{os.getcwd()}\\PythonObsidian.log")
+print(f"\nFor more info check the log file on \n{os.getcwd()}\\{log_file_name}")
 
 print("\nPress enter to close")
 
 input()
+    
