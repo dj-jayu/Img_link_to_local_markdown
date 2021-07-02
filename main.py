@@ -16,8 +16,12 @@ class FolderCreator:
     def create_folder(self, name):
         self.name = name
         self.folder = self.location + "/" + self.name
-        if not os.path.exists(self.folder):
-            os.mkdir(self.folder)
+        try:
+            if not os.path.exists(self.folder):
+                os.mkdir(self.folder)            
+        except Exception as e:
+                logging.exception(f"Error when creating folder: {self.folder}")
+        
 
 
 # Write the content ("filedata") of each new modified file with "filename" as name, on the "folder_path"
@@ -26,8 +30,11 @@ class FileWritter:
         self.folder_path = folder_path
         self.filename = filename
         self.filedata = filedata
-        with open(self.folder_path + "\\" + self.filename, "w", encoding="utf-8") as file:
-            file.write(self.filedata)
+        try:
+            with open(self.folder_path + "\\" + self.filename, "w", encoding="utf-8") as file:
+                file.write(self.filedata)
+        except Exception as e:
+            logging.exception(f"Error when creating file: {self.filename}")
 
 
 # Download the images from the links obtained from the markdown files to the "destination folder"
