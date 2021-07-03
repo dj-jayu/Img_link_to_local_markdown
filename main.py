@@ -6,6 +6,8 @@ import string
 import urllib.request
 import time
 import logging
+from urllib.parse import quote
+
 
 # Creates a folder in "location" to store the pictures and the modified files (local link to imgs)
 
@@ -95,17 +97,18 @@ class UrlDictCreator:
 # Edit the markdown files, changing the url's links for a new name corresponding to the name of the local file
 # images that will be downloaded later
 class FileDataEditor:
-    def edit(self, file_data, url_dict, file_name):
+    def edit(self, file_data, url_dict, file_name, folder_path):
+        self.folder_path = folder_path
         self.file_name = file_name
         self.url_dict = url_dict
         self.file_data = file_data
-        for key, value in url_dict.items():
-            self.file_data = self.file_data.replace(key, f"/Images/{value}")
-            print(f"\nreplaced: {key}\nwith /Images/{value}\n on file {self.file_name}\n")
-            logging.info(f"replaced: {key}\nwith: /Images/{value}\non file: {self.file_name}\n")
+        for key, name in url_dict.items():
+            self.encoded_path_file_name = f"{self.folder_path}".replace(" ", "%20") + f"\\{name}"
+            self.file_data = self.file_data.replace(key, self.encoded_path_file_name)
+            print(f"\nreplaced: {key}\nwith {self.encoded_path_file_name}\n on file {self.file_name}\n")
+            logging.info(f"replaced: {key}\nwith {self.encoded_path_file_name}\n on file {self.file_name}\n")
 
         return self.file_data
-
 
 
 # Program start:
@@ -155,7 +158,7 @@ for filename in os.listdir(os.getcwd()):
 
     # Edit the read content of each file, replacing the found imgs urls with local file names instead
     file_data_editor = FileDataEditor()
-    edited_file_data = file_data_editor.edit(file_data, url_dict, filename)
+    edited_file_data = file_data_editor.edit(file_data, url_dict, filename, folder_path)
 
     # Download the images listed on the dictionary of found urls for each file
     images_downloader = ImgDownloader()
